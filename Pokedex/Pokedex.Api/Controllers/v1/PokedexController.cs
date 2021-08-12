@@ -11,7 +11,7 @@ namespace Pokedex.Api.Controllers.v1
         [HttpGet("/pokemon/{pokemonName}")]
         public async Task<IActionResult> GetPokemonInformation([FromRoute] GetPokemonInformationRequest request, CancellationToken cancellationToken)
         {
-            
+            return await Task.FromResult(this.Ok());
         }
     }
 }

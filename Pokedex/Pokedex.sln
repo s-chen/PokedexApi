@@ -1,6 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+#
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Api", "Pokedex.Api\Pokedex.Api.csproj", "{6DC844B8-9218-40E3-AB9E-9869B404E42F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{29190C13-2237-4AD5-AE90-9C121BC0AD84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{B5973A7D-CFC4-4748-9DA8-4A3C16B872B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{57AB6B2E-1C82-45E7-A853-13A04A3756F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Api.UnitTests", "Pokedex.Api.UnitTests\Pokedex.Api.UnitTests.csproj", "{A6A5A0D6-1526-44F8-91F1-1FD73CAE1755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Api.IntegrationTests", "Pokedex.Api.IntegrationTests\Pokedex.Api.IntegrationTests.csproj", "{2A3C6817-4647-4D65-8778-A466691C597D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +23,19 @@ Global
 		{6DC844B8-9218-40E3-AB9E-9869B404E42F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DC844B8-9218-40E3-AB9E-9869B404E42F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DC844B8-9218-40E3-AB9E-9869B404E42F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6A5A0D6-1526-44F8-91F1-1FD73CAE1755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A5A0D6-1526-44F8-91F1-1FD73CAE1755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A5A0D6-1526-44F8-91F1-1FD73CAE1755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6A5A0D6-1526-44F8-91F1-1FD73CAE1755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A3C6817-4647-4D65-8778-A466691C597D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3C6817-4647-4D65-8778-A466691C597D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3C6817-4647-4D65-8778-A466691C597D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3C6817-4647-4D65-8778-A466691C597D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B5973A7D-CFC4-4748-9DA8-4A3C16B872B0} = {29190C13-2237-4AD5-AE90-9C121BC0AD84}
+		{57AB6B2E-1C82-45E7-A853-13A04A3756F5} = {29190C13-2237-4AD5-AE90-9C121BC0AD84}
+		{A6A5A0D6-1526-44F8-91F1-1FD73CAE1755} = {B5973A7D-CFC4-4748-9DA8-4A3C16B872B0}
+		{2A3C6817-4647-4D65-8778-A466691C597D} = {57AB6B2E-1C82-45E7-A853-13A04A3756F5}
 	EndGlobalSection
 EndGlobal
