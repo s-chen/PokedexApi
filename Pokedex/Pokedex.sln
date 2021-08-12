@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Api", "Pokedex.Api\Pokedex.Api.csproj", "{6DC844B8-9218-40E3-AB9E-9869B404E42F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DC844B8-9218-40E3-AB9E-9869B404E42F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC844B8-9218-40E3-AB9E-9869B404E42F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC844B8-9218-40E3-AB9E-9869B404E42F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC844B8-9218-40E3-AB9E-9869B404E42F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
