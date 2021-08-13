@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Flurl.Http;
 using Flurl.Http.Configuration;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Pokedex.Services.PokemonService.Exception;
 using Pokedex.Services.PokemonService.Model;
@@ -17,41 +18,42 @@ namespace Pokedex.Services.PokemonService
         private readonly IFlurlClient _flurlClient;
 
 
-        public PokemonService(IFlurlClientFactory flurlClientFactory, PokemonServiceOptions options)
+        public PokemonService(IFlurlClientFactory flurlClientFactory, IOptions<PokemonServiceOptions> options)
         {
-            _options = options; 
-            _flurlClient = flurlClientFactory.Get(_options.Endpoint);
+            _options = options.Value; 
+            _flurlClient = flurlClientFactory.Get(_options.Host);
         }
         
-        public async Task<PokemonInformation> GetPokemonInformationAsync(string pokemonName, CancellationToken cancellationToken)
+        public async Task<PokemonInformationResponse> GetPokemonInformationAsync(string pokemonName, CancellationToken cancellationToken)
         {
-            var flurlRequest = _flurlClient.Request();
+            var url = $"{_options.Host}/pokemon-species/{pokemonName}";
+            var flurlRequest = _flurlClient.Request(url);
 
             try
             {
                 using (var response = await flurlRequest.GetAsync(cancellationToken))
                 {
                     var responseContent = await response.GetStringAsync();
-                    var responseSchema = JsonConvert.DeserializeObject<PokemonInformationResponse>(responseContent);
+                    var responseSchema = JsonConvert.DeserializeObject<PokemonInformationServiceResponse>(responseContent);
                     return MapPokemonInformation(responseSchema);
                 }
             }
             catch (System.Exception exception)
             {
-                throw new PokemonServiceException("Error occurred while trying to retrive Pokemon information", exception);
+                throw new PokemonServiceException("Error occurred while trying to retrieve Pokemon information", exception);
             }
         }
 
-        private static PokemonInformation MapPokemonInformation(PokemonInformationResponse response)
+        private static PokemonInformationResponse MapPokemonInformation(PokemonInformationServiceResponse response)
         {
             if (response == null)
             {
-                return new PokemonInformation();
+                return new PokemonInformationResponse();
             }
 
             var description = response.FlavorTexts?.First(x => x.Language?.Name == "en").Description;
 
-            var pokemonInformation = new PokemonInformation
+            var pokemonInformation = new PokemonInformationResponse
             {
                 Description = description,
                 Habitat = response.Habitat?.Name,
