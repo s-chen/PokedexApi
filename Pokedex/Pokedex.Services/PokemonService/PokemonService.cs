@@ -16,8 +16,7 @@ namespace Pokedex.Services.PokemonService
     {
         private readonly PokemonServiceOptions _options;
         private readonly IFlurlClient _flurlClient;
-
-
+        
         public PokemonService(IFlurlClientFactory flurlClientFactory, IOptions<PokemonServiceOptions> options)
         {
             _options = options.Value; 

@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Pokedex.Services.PokemonService;
 using Pokedex.Services.PokemonService.Exception;
 using Pokedex.Services.PokemonService.Model;
@@ -9,11 +10,13 @@ namespace Pokedex.Api.CQRS
 {
     public class GetPokemonInformationHandler : IRequestHandler<GetPokemonInformationHandler.Context, PokemonInformation>
     {
-        private IPokemonService _pokemonService;
-        
-        public GetPokemonInformationHandler(IPokemonService pokemonService)
+        private readonly IPokemonService _pokemonService;
+        private readonly ILogger<GetPokemonInformationHandler> _logger;
+
+        public GetPokemonInformationHandler(IPokemonService pokemonService, ILogger<GetPokemonInformationHandler> logger)
         {
             _pokemonService = pokemonService;
+            _logger = logger;
         }
         
         public async Task<PokemonInformation> Handle(Context request, CancellationToken cancellationToken)
@@ -27,7 +30,7 @@ namespace Pokedex.Api.CQRS
             }
             catch (PokemonServiceException exception)
             {
-                
+                _logger.LogError("Error occurred while trying to get pokemon information");
             }
 
             return pokemonInformation;

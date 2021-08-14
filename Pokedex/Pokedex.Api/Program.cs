@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Pokedex.Api
 {
@@ -13,11 +14,29 @@ namespace Pokedex.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.Seq("http://localhost:5341")
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Starting Web Host");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception, "Error occurred - Host builder");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                .UseSerilog();
     }
 }

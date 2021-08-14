@@ -20,7 +20,13 @@ namespace Pokedex.Api.Controllers.v1
         public async Task<IActionResult> GetPokemonInformation([FromRoute] GetPokemonInformationRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetPokemonInformationHandler.Context(request.PokemonName), cancellationToken);
-            return this.Ok(result);
+            return Ok(result);
+        }
+
+        [HttpGet("/pokemon/translated/{pokemonName}")]
+        public async Task<IActionResult> GetPokemonTranslatedInformation([FromRoute] GetPokemonInformationRequest request, CancellationToken cancellationToken)
+        {
+            
         }
     }
 }
