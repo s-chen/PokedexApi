@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pokedex.Api.CQRS;
+using Pokedex.Api.CQRS.Common;
 using Pokedex.Api.Models.v1.Requests;
 
 namespace Pokedex.Api.Controllers.v1
@@ -26,7 +27,8 @@ namespace Pokedex.Api.Controllers.v1
         [HttpGet("/pokemon/translated/{pokemonName}")]
         public async Task<IActionResult> GetPokemonTranslatedInformation([FromRoute] GetPokemonInformationRequest request, CancellationToken cancellationToken)
         {
-            
+            var result = await _mediator.Send(new GetPokemonTranslatedInformationHandler.Context(request.PokemonName), cancellationToken);
+            return Ok(result);
         }
     }
 }

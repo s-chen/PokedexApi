@@ -1,4 +1,4 @@
-namespace Pokedex.Api.CQRS
+namespace Pokedex.Api.CQRS.Common
 {
     public class PokemonInformation
     {

@@ -9,6 +9,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Pokedex.Services.PokemonService;
 using Pokedex.Services.PokemonService.Options;
+using Pokedex.Services.TranslationService.Common;
+using Pokedex.Services.TranslationService.Common.Options;
+using Pokedex.Services.TranslationService.ShakespeareTranslationService;
+using Pokedex.Services.TranslationService.YodaTranslationService;
 
 namespace Pokedex.Api
 {
@@ -32,9 +36,17 @@ namespace Pokedex.Api
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddOptions();
+            
             services.AddSingleton<IFlurlClientFactory, DefaultFlurlClientFactory>();
+            
             services.Configure<PokemonServiceOptions>(Configuration.GetSection("PokemonService"));
             services.AddSingleton<IPokemonService, PokemonService>();
+
+            services.Configure<TranslationServiceOptions>(Configuration.GetSection("TranslationService"));
+            
+            services.AddSingleton<IShakespeareTranslationService, ShakespeareTranslationService>();
+            services.AddSingleton<IYodaTranslationService, YodaTranslationService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
