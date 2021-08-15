@@ -39,7 +39,7 @@ namespace Pokedex.Services.TranslationService.Common
                     return TranslationMapper.Map(responseSchema);
                 }
             }
-            catch (System.Exception exception)
+            catch (FlurlHttpException exception)
             {
                 throw new TranslationServiceException("Error occurred while trying to translate text", exception);
             }

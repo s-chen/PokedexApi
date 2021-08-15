@@ -34,7 +34,7 @@ namespace Pokedex.Api
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ValidationActionFilter));
-                options.Filters.Add(typeof(PokemonActionFilter));
+                options.Filters.Add(typeof(PokemonExceptionActionFilter));
             })
             .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<Startup>());
             

@@ -48,10 +48,12 @@ namespace Pokedex.Api.CQRS
             if (habitat.Equals("cave", StringComparison.InvariantCultureIgnoreCase) || isLegendary)
             {
                 translatedResponse = await _yodaTranslationService.GetTranslationAsync(description, cancellationToken);
+                Logger.LogInformation($"Yoda translation invoked for habitat: {habitat}, legendary: {isLegendary}");
             }
             else
             {
                 translatedResponse = await _shakespeareTranslationService.GetTranslationAsync(description, cancellationToken);
+                Logger.LogInformation($"Shakespeare translation invoked for habitat: {habitat}, legendary: {isLegendary}");
             }
 
             var result = !string.IsNullOrWhiteSpace(translatedResponse.TranslatedText)

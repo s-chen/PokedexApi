@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Pokedex.Api.CQRS.Common;
 using Pokedex.Services.PokemonService;
-using Pokedex.Services.PokemonService.Exception;
 using Pokedex.Services.PokemonService.Model;
 
 namespace Pokedex.Api.CQRS
@@ -21,19 +20,9 @@ namespace Pokedex.Api.CQRS
         
         protected async Task<PokemonInformation> GetPokemonInformationAsync(string pokemonName, CancellationToken cancellationToken)
         {
-            var pokemonInformation = new PokemonInformation();
-            
-            try
-            {
-                var response = await PokemonService.GetPokemonInformationAsync(pokemonName, cancellationToken);
-                pokemonInformation = GetPokemonInformation(response, pokemonName);
-            }
-            catch (PokemonServiceException exception)
-            {
-                Logger.LogError("Error occurred while trying to get pokemon information", exception);
-            }
-
-            return pokemonInformation;
+            var response = await PokemonService.GetPokemonInformationAsync(pokemonName, cancellationToken);
+            Logger.LogInformation($"Response retrieved for pokemon {pokemonName}");
+            return GetPokemonInformation(response, pokemonName);
         }
         
         private static PokemonInformation GetPokemonInformation(PokemonInformationResponse response, string pokemonName)
