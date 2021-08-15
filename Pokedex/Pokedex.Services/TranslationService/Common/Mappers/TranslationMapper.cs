@@ -1,5 +1,3 @@
-using System;
-using Pokedex.Services.TranslationService.Common.Enums;
 using Pokedex.Services.TranslationService.Common.Model;
 using Pokedex.Services.TranslationService.Common.Schema;
 
@@ -13,14 +11,11 @@ namespace Pokedex.Services.TranslationService.Common.Mappers
             {
                 return new TranslatedResponse();
             }
-
-            Enum.TryParse<TranslationType>(response.Contents.Translation, out var translationType);
-
+            
             return new TranslatedResponse
             {
                 StandardDescription = response.Contents.Text,
-                TranslatedText = response.Contents.Translated,
-                TranslationType = translationType
+                TranslatedText = response.Contents.Translated
             };
         }
     }

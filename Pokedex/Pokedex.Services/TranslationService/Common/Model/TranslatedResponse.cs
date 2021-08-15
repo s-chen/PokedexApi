@@ -1,5 +1,3 @@
-using Pokedex.Services.TranslationService.Common.Enums;
-
 namespace Pokedex.Services.TranslationService.Common.Model
 {
     public class TranslatedResponse
@@ -7,7 +5,5 @@ namespace Pokedex.Services.TranslationService.Common.Model
         public string TranslatedText { get; set; }
         
         public string StandardDescription { get; set; }
-        
-        public TranslationType TranslationType { get; set; }
     }
 }

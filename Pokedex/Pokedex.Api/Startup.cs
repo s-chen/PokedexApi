@@ -9,7 +9,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Pokedex.Services.PokemonService;
 using Pokedex.Services.PokemonService.Options;
-using Pokedex.Services.TranslationService.Common;
 using Pokedex.Services.TranslationService.Common.Options;
 using Pokedex.Services.TranslationService.ShakespeareTranslationService;
 using Pokedex.Services.TranslationService.YodaTranslationService;
@@ -43,7 +42,6 @@ namespace Pokedex.Api
             services.AddSingleton<IPokemonService, PokemonService>();
 
             services.Configure<TranslationServiceOptions>(Configuration.GetSection("TranslationService"));
-            
             services.AddSingleton<IShakespeareTranslationService, ShakespeareTranslationService>();
             services.AddSingleton<IYodaTranslationService, YodaTranslationService>();
             

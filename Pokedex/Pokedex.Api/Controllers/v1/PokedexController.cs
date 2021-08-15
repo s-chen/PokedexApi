@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pokedex.Api.CQRS;
-using Pokedex.Api.CQRS.Common;
 using Pokedex.Api.Models.v1.Requests;
 
 namespace Pokedex.Api.Controllers.v1
@@ -11,7 +10,7 @@ namespace Pokedex.Api.Controllers.v1
     [Route("api/v1")]
     public class PokedexController : ControllerBase
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
         public PokedexController(IMediator mediator)
         {
             _mediator = mediator;

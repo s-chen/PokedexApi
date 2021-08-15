@@ -5,28 +5,22 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokedex.Api.CQRS.Common;
 using Pokedex.Services.PokemonService;
-using Pokedex.Services.PokemonService.Exception;
-using Pokedex.Services.PokemonService.Model;
-using Pokedex.Services.TranslationService.Common;
 using Pokedex.Services.TranslationService.Common.Model;
 using Pokedex.Services.TranslationService.ShakespeareTranslationService;
 using Pokedex.Services.TranslationService.YodaTranslationService;
 
 namespace Pokedex.Api.CQRS
 {
-    public class GetPokemonTranslatedInformationHandler : IRequestHandler<GetPokemonTranslatedInformationHandler.Context, PokemonInformation>
+    public class GetPokemonTranslatedInformationHandler : PokemonInformationHandlerBase, IRequestHandler<GetPokemonTranslatedInformationHandler.Context, PokemonInformation>
     {
-        private readonly IPokemonService _pokemonService;
         private readonly IShakespeareTranslationService _shakespeareTranslationService;
         private readonly IYodaTranslationService _yodaTranslationService;
-        private readonly ILogger<GetPokemonTranslatedInformationHandler> _logger;
 
         public GetPokemonTranslatedInformationHandler(IPokemonService pokemonService, IShakespeareTranslationService shakespeareTranslationService, IYodaTranslationService yodaTranslationService, ILogger<GetPokemonTranslatedInformationHandler> logger)
+            : base(pokemonService, logger)
         {
-            _pokemonService = pokemonService;
             _shakespeareTranslationService = shakespeareTranslationService;
             _yodaTranslationService = yodaTranslationService;
-            _logger = logger;
         }
         
         public struct Context : IRequest<PokemonInformation>
@@ -43,23 +37,6 @@ namespace Pokedex.Api.CQRS
         {
             var pokemonInformation = await GetPokemonInformationAsync(request.PokemonName, cancellationToken);
             pokemonInformation.Description = await GetTranslatedDescriptionAsync(pokemonInformation.Description, pokemonInformation.Habitat, pokemonInformation.IsLegendary, cancellationToken);
-
-            return pokemonInformation;
-        }
-
-        private async Task<PokemonInformation> GetPokemonInformationAsync(string pokemonName, CancellationToken cancellationToken)
-        {
-            var pokemonInformation = new PokemonInformation();
-            
-            try
-            {
-                var response = await _pokemonService.GetPokemonInformationAsync(pokemonName, cancellationToken);
-                pokemonInformation = GetPokemonInformation(response, pokemonName);
-            }
-            catch (PokemonServiceException exception)
-            {
-                _logger.LogError("Error occurred while trying to get pokemon information", exception);
-            }
 
             return pokemonInformation;
         }
@@ -82,17 +59,6 @@ namespace Pokedex.Api.CQRS
                 : description;
 
             return result;
-        }
-        
-        private static PokemonInformation GetPokemonInformation(PokemonInformationResponse response, string pokemonName)
-        {
-            return new PokemonInformation
-            {
-                Description = response.Description,
-                Habitat = response.Habitat,
-                IsLegendary = response.IsLegendary,
-                Name = pokemonName
-            };
         }
     }
 }
