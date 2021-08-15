@@ -1,4 +1,6 @@
 using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Flurl.Http.Configuration;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Pokedex.Api.Filters;
+using Pokedex.Api.Validators;
 using Pokedex.Services.PokemonService;
 using Pokedex.Services.PokemonService.Options;
 using Pokedex.Services.TranslationService.Common.Options;
@@ -27,6 +31,13 @@ namespace Pokedex.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidationActionFilter));
+                options.Filters.Add(typeof(PokemonActionFilter));
+            })
+            .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<Startup>());
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

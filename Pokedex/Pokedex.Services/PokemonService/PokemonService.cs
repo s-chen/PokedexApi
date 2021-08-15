@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Flurl.Http;
@@ -26,28 +27,34 @@ namespace Pokedex.Services.PokemonService
         public async Task<PokemonInformationResponse> GetPokemonInformationAsync(string pokemonName, CancellationToken cancellationToken)
         {
             var url = $"{_options.Host}/pokemon-species/{pokemonName}";
-            var flurlRequest = _flurlClient.Request(url);
+            var flurlRequest = _flurlClient.Request(url)
+                .AllowHttpStatus(HttpStatusCode.NotFound);
 
             try
             {
                 using (var response = await flurlRequest.GetAsync(cancellationToken))
                 {
+                    if (response.StatusCode == (int)HttpStatusCode.NotFound)
+                    {
+                        throw new PokemonNotFoundException("Pokemon cannot be found");
+                    }
+                    
                     var responseContent = await response.GetStringAsync();
                     var responseSchema = JsonConvert.DeserializeObject<PokemonInformationServiceResponse>(responseContent);
                     return MapPokemonInformation(responseSchema);
                 }
             }
-            catch (System.Exception exception)
+            catch (FlurlHttpException exception)
             {
                 throw new PokemonServiceException("Error occurred while trying to retrieve Pokemon information", exception);
             }
         }
-
+        
         private static PokemonInformationResponse MapPokemonInformation(PokemonInformationServiceResponse response)
         {
             if (response == null)
             {
-                return new PokemonInformationResponse();
+                throw new PokemonNoContentException();
             }
 
             var description = response.FlavorTexts?.First(x => x.Language?.Name == "en").Description;
