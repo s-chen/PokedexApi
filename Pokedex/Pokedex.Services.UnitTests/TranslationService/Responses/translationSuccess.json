@@ -1,0 +1,9 @@
+{
+  "success": {
+    "total": 1
+  },
+  "contents": {
+    "translated": "translatedText",
+    "text": "text"
+  }
+}

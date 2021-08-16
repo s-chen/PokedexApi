@@ -39,6 +39,9 @@ namespace Pokedex.Api.UnitTests.CQRS
             _mockPokemonService.Setup(x => x.GetPokemonInformationAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new PokemonInformationResponse { Description = "description", Habitat = "cave", IsLegendary = false });
             
+            _mockYodaTranslationService.Setup(x => x.GetTranslationAsync("description", CancellationToken.None))
+                .ReturnsAsync(new TranslatedResponse { StandardDescription = "description", TranslatedText = string.Empty });
+            
             // Act
             var result = await _handler.Handle(new GetPokemonTranslatedInformationHandler.Context("pokemonName"), CancellationToken.None);
             
@@ -55,7 +58,7 @@ namespace Pokedex.Api.UnitTests.CQRS
                     It.IsAny<It.IsAnyType>(),
                     It.IsAny<Exception>(),
                     It.IsAny<Func<It.IsAnyType, Exception, string>>()),
-                Times.Once);
+                Times.Exactly(2));
         }
 
         [Theory]
