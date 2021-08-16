@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  pokedexapi:
+    image: ${DOCKER_REGISTRY-}pokedexapi
+    build:
+      context: .
+      dockerfile: Pokedex.Api/Dockerfile
+    ports:
+      - "8080:80"
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - 5341:80
+    environment:
+      ACCEPT_EULA: Y
