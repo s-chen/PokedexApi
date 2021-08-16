@@ -26,7 +26,7 @@ namespace Pokedex.Services.PokemonService
         
         public async Task<PokemonInformationResponse> GetPokemonInformationAsync(string pokemonName, CancellationToken cancellationToken)
         {
-            var url = $"{_options.Host}/pokemon-species/{pokemonName}";
+            var url = $"{_options.Host}/pokemon-species/{pokemonName.ToLower()}";
             var flurlRequest = _flurlClient.Request(url)
                 .AllowHttpStatus(HttpStatusCode.NotFound);
 
