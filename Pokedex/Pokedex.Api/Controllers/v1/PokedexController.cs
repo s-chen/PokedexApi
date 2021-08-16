@@ -7,7 +7,8 @@ using Pokedex.Api.Models.v1.Requests;
 
 namespace Pokedex.Api.Controllers.v1
 {
-    [Route("api/v1")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class PokedexController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -16,14 +17,14 @@ namespace Pokedex.Api.Controllers.v1
             _mediator = mediator;
         }
         
-        [HttpGet("/pokemon/{pokemonName}")]
+        [HttpGet("/pokemon/{PokemonName}")]
         public async Task<IActionResult> GetPokemonInformation([FromRoute] GetPokemonInformationRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetPokemonInformationHandler.Context(request.PokemonName), cancellationToken);
             return Ok(result);
         }
 
-        [HttpGet("/pokemon/translated/{pokemonName}")]
+        [HttpGet("/pokemon/translated/{PokemonName}")]
         public async Task<IActionResult> GetPokemonTranslatedInformation([FromRoute] GetPokemonInformationRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetPokemonTranslatedInformationHandler.Context(request.PokemonName), cancellationToken);
