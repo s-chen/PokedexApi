@@ -1,5 +1,4 @@
 using System.Reflection;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Flurl.Http.Configuration;
 using MediatR;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Pokedex.Api.Filters;
-using Pokedex.Api.Validators;
 using Pokedex.Services.PokemonService;
 using Pokedex.Services.PokemonService.Options;
 using Pokedex.Services.TranslationService.Common.Options;
