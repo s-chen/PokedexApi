@@ -21,6 +21,15 @@ The Pokedex API makes use of the https://pokeapi.co/ to retrieve Pokemon related
 
 - The SEQ logging UI will be available to browse on http://localhost:5341/ (Please note: events will only be logged when running/debugging the application through IDE - run SEQ separately (making sure no existing SEQ instance is running): **docker run --name seq -d --restart unless-stopped -e ACCEPT_EULA=Y -p 5341:80 datalust/seq:latest**
 
+
+# Testing
+
+- The project contains unit test and integration test projects for the API.
+- For the integration test, please ensure the API is running under http://localhost:8080 (in Docker container) before running the test locally.
+- For test environments, I would like to setup stubbed responses using a tool such as Wiremock (http://wiremock.org/) in order to test against different responses easily.
+
+
+
 # Production
 
 - For production, the API would require authentication in order to access the endpoints in order to ensure authorised access. I would look to implement JWT authentication over Basic Authentication as this has several benefits such as: no need to pass in credentials, can specifically grant scopes to allow access to different endpoints for example.
