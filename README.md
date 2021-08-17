@@ -2,6 +2,9 @@
 
 The Pokedex API makes use of the https://pokeapi.co/ to retrieve Pokemon related information and also https://funtranslations.com/api/ to apply fun translations of a Pokemon's description.
 
+# Details
+- The API was developed using .NET CORE (.NET 5), please ensure you have installed the latest .NET SDK and runtime https://dotnet.microsoft.com/download/dotnet/5.0
+
 # How to run
 
 **Visual Studio / JetBrains Rider IDE:**
