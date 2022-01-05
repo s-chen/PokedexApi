@@ -26,16 +26,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     
       - name: Build image and push to Docker Hub
-        uses: docker/build-push-action@v2
-        with:
-          # relative path to the place where source code with Dockerfile is located
-          context: docker-compose -f Pokedex/docker-compose.yml build
-          
-          #run: docker-compose -f Pokedex/docker-compose.yml build
-          
-          # Note: tags has to be all lower-case
-          tags: |
-            schen21/pokedexapi:pokedexapi-latest 
-          # build on feature branches, push only on main branch
-          push: ${{ github.ref == 'refs/heads/master' }}
+        run: docker-compose -f Pokedex/docker-compose.yml build
+     
+      - name: List images
+        run: docker images
+        
+      - name: Push images
+        run: docker-compose -f Pokedex/docker-compose.yml build
+
 
