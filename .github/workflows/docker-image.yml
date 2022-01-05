@@ -29,9 +29,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           # relative path to the place where source code with Dockerfile is located
-          #context: ./src/samples/simple
+          context: docker-compose -f Pokedex/docker-compose.yml build
           
-          run: docker-compose -f Pokedex/docker-compose.yml build
+          #run: docker-compose -f Pokedex/docker-compose.yml build
           
           # Note: tags has to be all lower-case
           tags: |
