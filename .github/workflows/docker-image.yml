@@ -35,6 +35,6 @@ jobs:
         run: docker tag pokedexapi schen21/pokedexapi:latest
         
       - name: Push images
-        run: docker-compose -f Pokedex/docker-compose.yml push
+        run: docker push schen21/pokedexapi:latest
 
 
