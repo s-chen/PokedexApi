@@ -21,10 +21,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-    
-      - name: Export to AMD64
-      - run: export DOCKER_DEFAULT_PLATFORM=linux/amd64
-      
+          
       - name: Build image and push to Docker Hub
         run: docker-compose -f Pokedex/docker-compose.yml build
      
