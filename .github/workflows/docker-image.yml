@@ -33,10 +33,9 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/ppc64le
           push: true
-          tags: ${{ steps.prep.outputs.tags }}
      
-      - name: List images
-        run: docker images
+ #     - name: List images
+  #      run: docker images
         
       - name: Tag image
         run: docker tag pokedexapi schen21/pokedexapi:pokedexapi-latest-test
