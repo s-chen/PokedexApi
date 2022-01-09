@@ -22,8 +22,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
-      - name: Build image and push to Docker Hub
-        run: docker-compose -f Pokedex/docker-compose.yml build
+     # - name: Build image and push to Docker Hub
+     #   run: docker-compose -f Pokedex/docker-compose.yml build
+     
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/ppc64le
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}
      
       - name: List images
         run: docker images
