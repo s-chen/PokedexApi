@@ -5,9 +5,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Pokedex.Api/Pokedex.Api.csproj", "Pokedex.Api/"]
-RUN dotnet restore "Pokedex.Api/Pokedex.Api.csproj"
 COPY . .
+RUN dotnet restore "Pokedex.Api/Pokedex.Api.csproj"
 WORKDIR "/src/Pokedex.Api"
 RUN dotnet build "Pokedex.Api.csproj" -c Release -o /app/build
 
