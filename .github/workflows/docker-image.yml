@@ -1,0 +1,52 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # setup Docker buld action
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+     # - name: Build image and push to Docker Hub
+     #   run: docker-compose -f Pokedex/docker-compose.yml build
+     
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Pokedex/Pokedex.Api
+          file: ./Pokedex/Pokedex.Api/Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: |
+            schen21/pokedexapi:pokedexapi-latest-test
+            
+ #     - name: List images
+  #      run: docker images
+        
+#      - name: Tag image
+ #       run: docker tag pokedexapi schen21/pokedexapi:pokedexapi-latest-test
+        
+      - name: Push images
+        run: docker push schen21/pokedexapi:pokedexapi-latest-test
+
+
