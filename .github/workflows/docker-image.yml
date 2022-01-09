@@ -32,13 +32,15 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/ppc64le
-          push: true
-     
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: |
+            schen21/pokedexapi:pokedexapi-latest-test
+            
  #     - name: List images
   #      run: docker images
         
-      - name: Tag image
-        run: docker tag pokedexapi schen21/pokedexapi:pokedexapi-latest-test
+#      - name: Tag image
+ #       run: docker tag pokedexapi schen21/pokedexapi:pokedexapi-latest-test
         
       - name: Push images
         run: docker push schen21/pokedexapi:pokedexapi-latest-test
